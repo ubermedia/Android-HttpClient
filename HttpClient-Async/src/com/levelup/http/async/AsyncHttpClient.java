@@ -87,7 +87,7 @@ public class AsyncHttpClient {
 			protected void done() {
 				super.done();
 
-				if (null!=httpListener)
+				if (null!=httpListener) {
 					uiHandler.post(new Runnable() {
 						@Override
 						public void run() {
@@ -111,6 +111,13 @@ public class AsyncHttpClient {
 							}
 						}
 					});
+				} else {
+					if (null!=tag) {
+						synchronized (taggedJobs) {
+							taggedJobs.remove(tag);
+						}
+					}
+				}
 			}
 		};
 
