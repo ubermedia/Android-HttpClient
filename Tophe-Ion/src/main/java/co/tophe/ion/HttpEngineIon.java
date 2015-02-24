@@ -144,42 +144,45 @@ public class HttpEngineIon<T, SE extends ServerException> extends AbstractHttpEn
 		AsyncParser<Object> parser = getXferTransformParser(commonTransforms);
 		ResponseFuture<Object> req = requestBuilder.as(parser);
 		Future<Response<Object>> withResponse = req.withResponse();
-		try {
-			Response<Object> response = withResponse.get();
-			HttpResponseIon ionResponse = new HttpResponseIon(response, commonTransforms);
-			setRequestResponse(ionResponse);
+        for(;;) {
+            try {
+                Response<Object> response = withResponse.get();
+                HttpResponseIon ionResponse = new HttpResponseIon(response, commonTransforms);
+                setRequestResponse(ionResponse);
 
-			Exception e = response.getException();
-			if (null != e) {
-				throw exceptionToHttpException(e).build();
-			}
+                Exception e = response.getException();
+                if (null != e) {
+                    throw exceptionToHttpException(e).build();
+                }
 
-			if (isHttpError(ionResponse)) {
-				Object data = response.getResult();
-				XferTransform<Object, Object> transformToResult = Utils.skipCommonTransforms(errorParser, commonTransforms);
-				SE errorData;
-				if (null == transformToResult)
-					errorData = (SE) data;
-				else
-					errorData = (SE) transformToResult.transformData(data, this);
-				throw errorData;
-			}
+                if (isHttpError(ionResponse)) {
+                    Object data = response.getResult();
+                    XferTransform<Object, Object> transformToResult = Utils.skipCommonTransforms(errorParser, commonTransforms);
+                    SE errorData;
+                    if (null == transformToResult)
+                        errorData = (SE) data;
+                    else
+                        errorData = (SE) transformToResult.transformData(data, this);
+                    throw errorData;
+                }
 
-			return ionResponse;
+                return ionResponse;
 
-		} catch (InterruptedException e) {
-			throw exceptionToHttpException(e).build();
+            } catch (InterruptedException e) {
+                //throw exceptionToHttpException(e).build();
+                continue;
 
-		} catch (ExecutionException e) {
-			throw exceptionToHttpException(e).build();
+            } catch (ExecutionException e) {
+                throw exceptionToHttpException(e).build();
 
-		} catch (ParserException e) {
-			throw exceptionToHttpException(e).build();
+            } catch (ParserException e) {
+                throw exceptionToHttpException(e).build();
 
-		} catch (IOException e) {
-			throw exceptionToHttpException(e).build();
+            } catch (IOException e) {
+                throw exceptionToHttpException(e).build();
 
-		}
+            }
+        }
 	}
 
 	@Override
