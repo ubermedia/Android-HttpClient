@@ -1,0 +1,10 @@
+// You need to put this in your <root>/settings.gradle and adapt the folder location
+
+include 'Tophe'
+project(':Tophe').projectDir = new File('Tophe')
+
+include 'Tophe-Ion'
+project(':Tophe-Ion').projectDir = new File('Tophe-Ion')
+
+include 'Tophe-OAuth1'
+project(':Tophe-OAuth1').projectDir = new File('Tophe-OAuth1')

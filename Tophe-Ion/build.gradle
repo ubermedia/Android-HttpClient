@@ -1,0 +1,119 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion Math.max(9, Integer.parseInt(ANDROID_BUILD_MIN_SDK_VERSION))
+        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+        versionCode Integer.parseInt(project.VERSION_CODE)
+        versionName project.VERSION_NAME
+    }
+
+    libraryVariants.all { variant ->
+        def name = variant.buildType.name
+        if (name.equals(com.android.builder.core.BuilderConstants.DEBUG)) {
+            return; // Skip debug builds.
+        }
+        def task = project.tasks.create "jar${name.capitalize()}", Jar
+        task.dependsOn variant.javaCompile
+        task.from variant.javaCompile.destinationDir
+        artifacts.add('archives', task);
+
+        configurations.archives.artifacts.with { archives ->
+            def aarArtifact
+            archives.each {
+                if (it.file =~ 'aar') {
+                    aarArtifact = it
+                }
+            }
+            //println "AAR to delete: ${aarArtifact}"
+            remove(aarArtifact)
+        }
+    }
+}
+
+dependencies {
+    def artifactSupportV4 = 'com.android.support:support-v4:21.0.3'
+    def artifactIon = 'com.koushikdutta.ion:ion:2.0.7'
+    def artifactTophe = 'co.tophe:tophe:1.0.0'
+
+    def androidAsyncProject = ':AndroidAsync:AndroidAsync'
+    def ionProject = ':Ion:Ion'
+    def supportv4Project = ':support-v4'
+    def localTophe = ':Tophe'
+
+    def useLocalAndroidAsync = false
+    def useLocalIon = false
+    def useLocalV4 = false
+    def useLocalTophe = false
+
+    allprojects {
+        rootProject.allprojects.project.each {
+            if (it.path == ionProject) {
+                useLocalIon = true
+            }
+            else if (it.path == androidAsyncProject) {
+                useLocalAndroidAsync = true
+            }
+            else if (it.path == supportv4Project) {
+                useLocalV4 = true
+            }
+            else if (it.path == localTophe) {
+                useLocalTophe = true
+            }
+        }
+    }
+
+    if (useLocalV4) {
+        println 'Using local support-v4 library in ' + project.path
+        compile project(supportv4Project)
+    } else {
+        compile artifactSupportV4
+    }
+
+    if (useLocalIon) {
+        println 'Using local Ion library in ' + project.path
+        compile project(ionProject)
+    } else {
+        compile (artifactIon) {
+            if (useLocalV4) {
+                println 'Exclude support-v4 dependency for ' + artifactIon + ' in ' + project.path
+                exclude group: 'com.android.support', module: 'support-v4'
+            }
+            if (useLocalAndroidAsync) {
+                println 'Exclude androidasync dependency for ' + artifactIon + ' in ' + project.path
+                exclude group: 'com.koushikdutta.async', module:'androidasync'
+            }
+        }
+    }
+
+    if (useLocalAndroidAsync) {
+        println 'Using local AndroidAsync library in ' + project.path
+        compile project(androidAsyncProject)
+    }
+
+    if (useLocalTophe) {
+        println 'Using local Tophe library in ' + project.path
+        compile project(localTophe)
+    } else {
+        compile artifactTophe
+    }
+
+    androidTestCompile 'com.squareup.okio:okio:1.0.1'
+}
+
+apply from: 'https://raw.githubusercontent.com/mcxiaoke/gradle-mvn-push/master/gradle-mvn-push.gradle'
+
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                pom*.whenConfigured { pom ->
+                    pom.dependencies.removeAll { dep -> dep.artifactId == 'support-v4' }
+                }
+            }
+        }
+    }
+}

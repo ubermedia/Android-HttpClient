@@ -1,0 +1,88 @@
+apply plugin: 'com.android.library'
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.3.1'
+
+    def artifactSupportAnnotations = 'com.android.support:support-annotations:21.0.3'
+    def useLocalAnnotations = false
+    def localAnnotations = ':support-annotations'
+
+    allprojects {
+        rootProject.allprojects.project.each {
+            if (it.path == localAnnotations) {
+                useLocalAnnotations = true
+            }
+        }
+    }
+
+    if (useLocalAnnotations) {
+        println 'Using local support-annotations library in ' + project.path
+        compile project(localAnnotations)
+    } else {
+        compile artifactSupportAnnotations
+    }
+
+    androidTestCompile 'com.squareup.okio:okio:1.0.1'
+    androidTestCompile ('com.google.android.gms:play-services-base:6.5.87') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+}
+
+android {
+    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion Math.max(9, Integer.parseInt(ANDROID_BUILD_MIN_SDK_VERSION))
+        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+        versionCode Integer.parseInt(project.VERSION_CODE)
+        versionName project.VERSION_NAME
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+
+        androidTest {
+            manifest.srcFile 'tests/AndroidManifest.xml'
+            java.srcDirs = ['tests/src']
+        }
+    }
+
+    buildTypes {
+        release {
+            proguardFiles getDefaultProguardFile('proguard-project.txt'), 'proguard-rules.txt'
+        }
+    }
+
+    libraryVariants.all { variant ->
+        def name = variant.buildType.name
+        if (name.equals(com.android.builder.core.BuilderConstants.DEBUG)) {
+            return; // Skip debug builds.
+        }
+        def task = project.tasks.create "jar${name.capitalize()}", Jar
+        task.dependsOn variant.javaCompile
+        task.from variant.javaCompile.destinationDir
+        artifacts.add('archives', task);
+
+        configurations.archives.artifacts.with { archives ->
+            def aarArtifact
+            archives.each {
+                if (it.file =~ 'aar') {
+                    aarArtifact = it
+                }
+            }
+            //println "AAR to delete: ${aarArtifact}"
+            remove(aarArtifact)
+        }
+    }
+}
+
+apply from: 'https://raw.githubusercontent.com/mcxiaoke/gradle-mvn-push/master/gradle-mvn-push.gradle'
