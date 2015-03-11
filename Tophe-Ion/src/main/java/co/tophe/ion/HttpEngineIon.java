@@ -10,6 +10,7 @@ import org.apache.http.protocol.HTTP;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.util.Log;
 
 import com.koushikdutta.async.ByteBufferList;
 import com.koushikdutta.async.DataEmitter;
@@ -213,11 +214,17 @@ public class HttpEngineIon<T, SE extends ServerException> extends AbstractHttpEn
 		}
 
 		if (e instanceof ConnectionClosedException && e.getCause() instanceof Exception) {
+            LogManager.getLogger().e("ConnectionClosedException for " + request, e);
 			return exceptionToHttpException((Exception) e.getCause());
 		}
 
 		if (e instanceof PrematureDataEndException) {
 			LogManager.getLogger().d("timeout for "+request);
+            LogManager.getLogger().e("timeout exception details", e);
+            StackTraceElement[] elms = Thread.currentThread().getStackTrace();
+            LogManager.getLogger().d("timeout stack trace:");
+            for(StackTraceElement el : elms)
+                LogManager.getLogger().d(el.getClassName() + "." + el.getMethodName() + "() at line " + el.getLineNumber());
 			HttpTimeoutException.Builder builder = new HttpTimeoutException.Builder(request, httpResponse);
 			builder.setErrorMessage("Timeout error " + e.getMessage());
 			builder.setCause(e);
