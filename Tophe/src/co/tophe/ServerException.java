@@ -2,6 +2,9 @@ package co.tophe;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
+
+import java.io.IOException;
 
 /**
  * Thrown when the server returns an HTTP error.
@@ -29,8 +32,13 @@ public class ServerException extends TopheException {
 	private final Object serverError;
 
 	public ServerException(@NonNull ImmutableHttpRequest request, @Nullable Object serverError) {
-		super(request.getHttpRequest(), request.getHttpResponse(), "serverError="+ String.valueOf(serverError));
-		this.serverError = serverError;
+		super(request.getHttpRequest(), request.getHttpResponse(), "serverError=" + String.valueOf(serverError));
+        try {
+            Log.e("", "new ServerError() " + request.getHttpResponse().getResponseCode() + ":" + request.getHttpResponse().getResponseMessage().toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.serverError = serverError;
 	}
 
 	@NonNull

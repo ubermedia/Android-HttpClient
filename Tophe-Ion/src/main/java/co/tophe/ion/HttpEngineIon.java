@@ -2,6 +2,8 @@ package co.tophe.ion;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 
@@ -43,6 +45,7 @@ import co.tophe.body.HttpBodyMultiPart;
 import co.tophe.body.HttpBodyParameters;
 import co.tophe.body.HttpBodyString;
 import co.tophe.body.HttpBodyUrlEncoded;
+import co.tophe.ion.internal.AsyncParserBase;
 import co.tophe.ion.internal.HttpResponseIon;
 import co.tophe.ion.internal.IonBody;
 import co.tophe.ion.internal.IonHttpBodyJSON;
@@ -234,7 +237,7 @@ public class HttpEngineIon<T, SE extends ServerException> extends AbstractHttpEn
 		return super.exceptionToHttpException(e);
 	}
 
-	private static final AsyncParser<InputStream> INPUT_STREAM_ASYNC_PARSER = new AsyncParser<InputStream>() {
+	private static final AsyncParser<InputStream> INPUT_STREAM_ASYNC_PARSER = new AsyncParserBase<InputStream>() {
 		@Override
 		public Future<InputStream> parse(DataEmitter emitter) {
 			return new ByteBufferListParser().parse(emitter)
@@ -250,7 +253,7 @@ public class HttpEngineIon<T, SE extends ServerException> extends AbstractHttpEn
 		public void write(DataSink sink, InputStream value, CompletedCallback completed) {
 			throw new AssertionError("not implemented");
 		}
-	};
+    };
 	private static final AsyncParser<String> STRING_ASYNC_PARSER = new StringParser();
 	private static final AsyncParser<?> JSON_OBJECT_ASYNC_PARSER = new JSONObjectParser();
 	private static final AsyncParser<?> JSON_ARRAY_ASYNC_PARSER = new JSONArrayParser();
@@ -286,7 +289,7 @@ public class HttpEngineIon<T, SE extends ServerException> extends AbstractHttpEn
 						}
 					}
 
-					return new AsyncParser<P>() {
+					return new AsyncParserBase<P>() {
 						@Override
 						public Future<P> parse(DataEmitter emitter) {
 							Future<InputStream> inputStreamFuture = INPUT_STREAM_ASYNC_PARSER.parse(emitter);
@@ -301,7 +304,7 @@ public class HttpEngineIon<T, SE extends ServerException> extends AbstractHttpEn
 						@Override
 						public void write(DataSink sink, P value, CompletedCallback completed) {
 						}
-					};
+                    };
 				}
 			}
 		}
