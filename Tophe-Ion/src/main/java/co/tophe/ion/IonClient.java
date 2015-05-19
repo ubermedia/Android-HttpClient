@@ -88,8 +88,6 @@ public final class IonClient {
 			ion.getConscryptMiddleware().initialize();
 		}
 
-        ion.getHttpClient().getSSLSocketMiddleware().setSpdyEnabled(false);
-
 		ion.getHttpClient().getSSLSocketMiddleware().addEngineConfigurator(new AsyncSSLEngineConfigurator() {
 			@Override
 			public void configureEngine(SSLEngine engine, AsyncHttpClientMiddleware.GetSocketData data, String host, int port) {
