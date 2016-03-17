@@ -2,7 +2,6 @@ package co.tophe.ion;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
@@ -253,7 +252,13 @@ public class HttpEngineIon<T, SE extends ServerException> extends AbstractHttpEn
 		public void write(DataSink sink, InputStream value, CompletedCallback completed) {
 			throw new AssertionError("not implemented");
 		}
-    };
+
+		@Override
+		public Type getType() {
+			return InputStream.class;
+		}
+	};
+
 	private static final AsyncParser<String> STRING_ASYNC_PARSER = new StringParser();
 	private static final AsyncParser<?> JSON_OBJECT_ASYNC_PARSER = new JSONObjectParser();
 	private static final AsyncParser<?> JSON_ARRAY_ASYNC_PARSER = new JSONArrayParser();
@@ -304,7 +309,12 @@ public class HttpEngineIon<T, SE extends ServerException> extends AbstractHttpEn
 						@Override
 						public void write(DataSink sink, P value, CompletedCallback completed) {
 						}
-                    };
+
+						@Override
+						public Type getType() {
+							return InputStream.class;
+						}
+					};
 				}
 			}
 		}

@@ -14,9 +14,9 @@ public class InputStreamPart extends StreamPart {
 	private final InputStream inputStream;
 
 	InputStreamPart(String streamName, InputStream value, long length) {
-		super(streamName, (int) length, new ArrayList<NameValuePair>() {
+		super(streamName, (int) length, new ArrayList<com.koushikdutta.async.http.NameValuePair>() {
 			{
-				add(new BasicNameValuePair("filename", "rawstream"));
+				add(new com.koushikdutta.async.http.BasicNameValuePair("filename", "rawstream"));
 			}
 		});
 		this.inputStream = value;
