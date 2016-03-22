@@ -38,6 +38,12 @@ public final class IonClient {
 	private IonClient() {
 	}
 
+	public static void killIon(@NonNull Context context) {
+		IonHttpEngineFactory factory = IonHttpEngineFactory.getInstance(context);
+		factory.getDefaultIon().cancelAll();
+		IonHttpEngineFactory.killInstance();
+	}
+
 	/**
 	 * Base setup function that sets Ion as the default {@link co.tophe.HttpEngine}
 	 *

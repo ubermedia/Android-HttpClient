@@ -39,6 +39,10 @@ public class IonHttpEngineFactory implements HttpEngineFactory {
 		return INSTANCE;
 	}
 
+	public static void killInstance() {
+		INSTANCE = null;
+	}
+
 	private IonHttpEngineFactory(Context context) {
 		if (context == null) {
 			throw new NullPointerException("Ion HTTP request with no Context");
