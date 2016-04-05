@@ -149,12 +149,12 @@ public class RawHttpRequest implements HttpRequest {
 					uriParams.appendUriParameters(uriBuilder);
 					this.uri = uriBuilder.build();
 				}
-				try {
+				/*try {
 					URI utfSafeUri = new URI(this.uri.getScheme(), this.uri.getAuthority(), this.uri.getPath(),
 							this.uri.getQuery(), this.uri.getFragment());
 					this.uri = Uri.parse(utfSafeUri.toASCIIString());
 				} catch (URISyntaxException e) {
-				}
+				}*/
 
 			}
 			return (B) this;
