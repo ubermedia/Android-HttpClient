@@ -47,6 +47,14 @@ public class HttpEngineFactoryUrlConnection implements HttpEngineFactory {
 		}
 	}
 
+	public void nullify() {
+		initialized = false;
+	}
+
+	public boolean isInitialized() {
+		return initialized;
+	}
+
 	/**
 	 * An {@link javax.net.ssl.SSLSocket} that doesn't allow {@code SSLv3} only connections
 	 * <p>fixes https://github.com/koush/ion/issues/386</p>

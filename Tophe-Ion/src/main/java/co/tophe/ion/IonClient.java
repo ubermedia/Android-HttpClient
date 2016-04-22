@@ -10,6 +10,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
+import com.koushikdutta.async.AsyncServer;
+import com.koushikdutta.async.http.AsyncHttpClient;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.async.http.AsyncSSLEngineConfigurator;
 import com.koushikdutta.ion.Ion;
@@ -41,6 +43,8 @@ public final class IonClient {
 	public static void killIon(@NonNull Context context) {
 		IonHttpEngineFactory factory = IonHttpEngineFactory.getInstance(context);
 		factory.getDefaultIon().cancelAll();
+		AsyncHttpClient.getDefaultInstance().purgeInstance();
+		//AsyncServer.nullify();
 		IonHttpEngineFactory.killInstance();
 	}
 
@@ -94,7 +98,9 @@ public final class IonClient {
 			ion.getConscryptMiddleware().initialize();
 		}
 
-        ion.getHttpClient().getSSLSocketMiddleware().setSpdyEnabled(false);
+        //ion.getHttpClient().getSSLSocketMiddleware().setSpdyEnabled(false);
+		ion.getHttpClient().getSocketMiddleware().setIdleTimeoutMs(60*1000);
+		ion.getHttpClient().getSSLSocketMiddleware().setIdleTimeoutMs(60*1000);
 
 		ion.getHttpClient().getSSLSocketMiddleware().addEngineConfigurator(new AsyncSSLEngineConfigurator() {
 			@Override
@@ -141,5 +147,7 @@ public final class IonClient {
 				}
 			}
 		});
+		ion.getHttpClient().getSocketMiddleware().setIdleTimeoutMs(60*1000);
+		ion.getHttpClient().getSSLSocketMiddleware().setIdleTimeoutMs(60*1000);
 	}
 }

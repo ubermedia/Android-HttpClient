@@ -28,6 +28,10 @@ public final class TopheClient {
 
 	private static Boolean useConscrypt;
 
+	public static void nullify() {
+		HttpEngineFactoryUrlConnection.INSTANCE.nullify();
+	}
+
 	/**
 	 * Setup internal values of the {@link TopheClient} using the provided {@link Context}
 	 * <p>The user agent is deduced from the app name of the {@code context} if it's not {@code null}</p>
