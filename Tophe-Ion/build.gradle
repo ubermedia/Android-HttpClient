@@ -101,6 +101,9 @@ dependencies {
         compile artifactTophe
     }
 
+    compile 'com.android.volley:volley:1.0.0'
+
+
     androidTestCompile 'com.squareup.okio:okio:1.0.1'
 }
 
