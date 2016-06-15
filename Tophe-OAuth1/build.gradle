@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
 
 dependencies {
-    def artifactTophe = 'co.tophe:tophe:1.0.1'
+    def artifactTophe = 'co.tophe:tophe:1.0.0'
 
     def localTophe = ':Tophe'
 
-    def useLocalTophe = false
+    def useLocalTophe = true
 
     allprojects {
         rootProject.allprojects.project.each {
@@ -15,12 +15,13 @@ dependencies {
         }
     }
 
-    if (useLocalTophe) {
-        println 'Using local Tophe library in ' + project.path
-        compile project(localTophe)
-    } else {
-        compile artifactTophe
-    }
+//    if (useLocalTophe) {
+  //      println 'Using local Tophe library in ' + project.path
+    //    compile project(localTophe)
+    //} else {
+    //    compile artifactTophe
+    //}
+    compile artifactTophe
 
     compile 'oauth.signpost:signpost-core:1.2.1.2'
 }

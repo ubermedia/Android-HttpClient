@@ -8,3 +8,6 @@ project(':Tophe').projectDir = new File('Tophe')
 
 include 'Tophe-OAuth1'
 project(':Tophe-OAuth1').projectDir = new File('Tophe-OAuth1')
+
+include 'tophe-volley'
+project(':tophe-volley').projectDir = new File('tophe-volley')

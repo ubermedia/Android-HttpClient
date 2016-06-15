@@ -1,16 +1,19 @@
 package com.debugger.tophe_volley.volley;
 
-import com.android.volley.toolbox.Volley;
+import android.content.Context;
+
+import co.tophe.TopheClient;
+import co.tophe.engine.HttpEngineFactoryFallback;
 
 /**
  * Created by Denis Babak on 13/06/16.
  */
 public class VolleyClient {
 
-    public void setupVolley(Volley volley) throws IllegalArgumentException {
-        if(volley == null)
-            throw new IllegalArgumentException("Volley can't be null");
-
+    public static void setup(Context context) {
+        VolleyHttpEngineFactory factory = VolleyHttpEngineFactory.getInstance(context);
+        TopheClient.setHttpEngineFactory(new HttpEngineFactoryFallback(factory, TopheClient.getHttpEngineFactory()));
+        TopheClient.setup(context);
     }
 
 }
