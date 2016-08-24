@@ -21,12 +21,14 @@ import co.tophe.UploadProgressListener;
  * <p>Useful to send {@link File} or {@link InputStream}</p>
  */
 public class HttpBodyMultiPart implements HttpBodyParameters {
-	protected final ArrayList<HttpParam> mParams;
+	public final ArrayList<HttpParam> mParams;
 
 	private static final String charset = "UTF-8";
 	private static final String CRLF = "\r\n";
 	public static final String boundary = "t0Ph3Multip4rt";
 	private static final String boundarySplit = "--";
+
+	public long apacheContentLength = -1;
 
 	/**
 	 * Constructor with an initial amount of parameters to hold
@@ -200,6 +202,8 @@ public class HttpBodyMultiPart implements HttpBodyParameters {
 
 	@Override
 	public long getContentLength() {
+		if(apacheContentLength >=0)
+			return apacheContentLength;
 		long contentLength = 0;
 		// everything but strings first in the multipart
 		for (HttpParam param : mParams)
@@ -316,7 +320,7 @@ public class HttpBodyMultiPart implements HttpBodyParameters {
 		return "multipart/form-data; boundary="+boundary;
 	}
 
-	protected static class HttpParam {
+	public static class HttpParam {
 		private static final String TEXT_PLAIN = "text/plain; charset=UTF-8";
 
 		public final String name;

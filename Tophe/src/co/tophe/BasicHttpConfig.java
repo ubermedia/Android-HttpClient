@@ -11,7 +11,7 @@ import android.text.format.DateUtils;
  */
 public class BasicHttpConfig implements HttpConfig {
 
-	public static final int READ_TIMEOUT_IN_MS = (int) (30 * DateUtils.SECOND_IN_MILLIS);
+	public static final int READ_TIMEOUT_IN_MS = (int) (20 * DateUtils.SECOND_IN_MILLIS);
 	public static final int READ_TIMEOUT_LONG_POST_IN_MS = (int) (80 * DateUtils.SECOND_IN_MILLIS);
 
 	public static final BasicHttpConfig INSTANCE = new BasicHttpConfig();

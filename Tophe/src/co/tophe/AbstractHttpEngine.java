@@ -84,7 +84,7 @@ public abstract class AbstractHttpEngine<T, SE extends ServerException, R extend
 	 * <p>Usually you don't need to call this yourself, the engine will do it</p>
 	 * @throws HttpSignException
 	 */
-	public final void prepareEngine() throws HttpSignException {
+	public void prepareEngine() throws HttpSignException {
 			/*
 			HttpResponse resp = null;
 			try {
@@ -116,6 +116,7 @@ public abstract class AbstractHttpEngine<T, SE extends ServerException, R extend
 	protected void setContentLength(long contentLength) {
 		setHeader(HTTP.CONTENT_LEN, Long.toString(contentLength));
 	}
+
 
 	/**
 	 * Set the HTTP headers on the internal connection, the follow redirect setting and the timeout
@@ -177,11 +178,11 @@ public abstract class AbstractHttpEngine<T, SE extends ServerException, R extend
 			String expectedMimeType = request.getHeader(HttpRequest.HEADER_ACCEPT);
 			if (!TextUtils.isEmpty(expectedMimeType)) {
 				MediaType expectedType = MediaType.parse(expectedMimeType);
-				if (null!=expectedType && !expectedType.equalsType(MediaType.parse(httpResponse.getContentType()))) {
+				/*if (null!=expectedType && !expectedType.equalsType(MediaType.parse(httpResponse.getContentType()))) {
 					HttpMimeException.Builder builder = new HttpMimeException.Builder(request, httpResponse);
 					builder.setErrorMessage("Expected '" + expectedMimeType + "' got '" + httpResponse.getContentType());
 					throw builder.build();
-				}
+				}*/
 			}
 
 			return responseToResult(httpResponse);

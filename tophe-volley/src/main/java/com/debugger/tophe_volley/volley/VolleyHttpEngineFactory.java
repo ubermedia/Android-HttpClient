@@ -27,11 +27,12 @@ public class VolleyHttpEngineFactory implements HttpEngineFactory {
     //public static final int BOGUS_CONSCRYPT_DUAL_FEEDLY = 6587000; // see https://github.com/koush/ion/issues/443
     //public static final int CONSCRYPT_LACKS_SNI = 6599038; // 6587030 to 6599038 don't have it see https://github.com/koush/ion/issues/428
 
-    private final RequestQueue volleyQueue;
+    private RequestQueue volleyQueue;
 
-    public static VolleyHttpEngineFactory getInstance(Context context) {
+    public static VolleyHttpEngineFactory getInstance(Context context, RequestQueue queue) {
         if (null == INSTANCE) {
             INSTANCE = new VolleyHttpEngineFactory(context);
+            INSTANCE.volleyQueue = queue;
         }
         return INSTANCE;
     }
@@ -41,7 +42,7 @@ public class VolleyHttpEngineFactory implements HttpEngineFactory {
             throw new NullPointerException("Volley HTTP request with no Context");
         }
 
-        volleyQueue = Volley.newRequestQueue(context);
+        //volleyQueue = Volley.newRequestQueue(context);
         //IonClient.setupIon(ion);
     }
 
@@ -98,7 +99,7 @@ public class VolleyHttpEngineFactory implements HttpEngineFactory {
      * @return whether Ion will be able to parse the data and the error in its processing thread
      */
     private static boolean errorCompatibleWithData(ResponseHandler<?,?> responseHandler) {
-        return Utils.getCommonXferTransform(responseHandler.contentParser, responseHandler.errorParser, false) != null;
+        return true;//Utils.getCommonXferTransform(responseHandler.contentParser, responseHandler.errorParser, false) != null;
     }
 
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import co.tophe.ImmutableHttpRequest;
 
@@ -111,6 +112,7 @@ public class XferTransformChain<INPUT, OUTPUT> implements XferTransform<INPUT, O
 			try {
 				intermediate = transform.transformData(intermediate, request);
 			} catch (ClassCastException e) {
+				e.printStackTrace();
 				throw new ParserException("Can't cast " + intermediate + " using " + transform + " in " + this, e, null);
 			}
 		}

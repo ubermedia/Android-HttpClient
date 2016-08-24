@@ -2,13 +2,14 @@ package co.tophe.body;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
-import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import co.tophe.HttpRequestInfo;
 import co.tophe.UploadProgressListener;
@@ -47,9 +48,31 @@ public class HttpBodyUrlEncoded implements HttpBodyParameters {
 
 	private byte[] getEncodedParams() {
 		if (null==encodedParams) {
-			encodedParams = URLEncodedUtils.format(mParams, "UTF-8")/*.replace("*", "∗")*/.getBytes();
+			boolean first = true;
+			StringBuilder b = new StringBuilder();
+			//encodedParams = URLEncodedUtils.format(mParams, "UTF-8")/*.replace("*", "∗")*/.getBytes();
+
+			try {
+				for (NameValuePair pair: mParams) {
+					if (pair.getValue() == null)
+						continue;;
+
+					b.append(URLEncoder.encode(pair.getName(), "UTF-8"));
+					b.append('=');
+					b.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
+					b.append('&');
+				}
+				encodedParams = b.toString().getBytes("UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+				return new byte[]{};
+			}
+
+
+			//encodedParams = URLEncoder.encode(mParams, "UTF-8").getBytes();
 			mParams.clear();
 		}
+		Log.e("", "length " + encodedParams.length);
 		return encodedParams;
 	}
 
