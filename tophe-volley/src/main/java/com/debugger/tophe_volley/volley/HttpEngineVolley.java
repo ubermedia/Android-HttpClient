@@ -58,6 +58,8 @@ public class HttpEngineVolley<T, SE extends ServerException> extends AbstractHtt
             method = Request.Method.POST;
         } else if(request.getHttpMethod().equalsIgnoreCase("DELETE")) {
             method = Request.Method.DELETE;
+        } else if(request.getHttpMethod().equalsIgnoreCase("PUT")) {
+            method = Request.Method.PUT;
         }
         if(volleyBody instanceof VolleyHttpBodyString) {
             volleyRequest = new StringRequest(method, request.getUri().toString(), future, future);
