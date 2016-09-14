@@ -18,6 +18,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import co.tophe.log.LogManager;
 import co.tophe.parser.ParserException;
@@ -97,7 +98,7 @@ public abstract class AbstractHttpEngine<T, SE extends ServerException, R extend
 
 		final long contentLength;
 		if (null != request.getBodyParameters()) {
-			setHeader(HTTP.CONTENT_TYPE, request.getBodyParameters().getContentType());
+			//setHeader(HTTP.CONTENT_TYPE, request.getBodyParameters().getContentType());
 			contentLength = request.getBodyParameters().getContentLength();
 		} else {
 			contentLength = 0L;
