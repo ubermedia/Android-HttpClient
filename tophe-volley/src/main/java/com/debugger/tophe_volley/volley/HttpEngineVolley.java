@@ -1,8 +1,11 @@
 package com.debugger.tophe_volley.volley;
 
+import android.util.Log;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.ServerError;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.debugger.tophe_volley.volley.internal.HttpResponseVolley;
@@ -67,6 +70,10 @@ public class HttpEngineVolley<T, SE extends ServerException> extends AbstractHtt
             try {
                 volleyRequest = new JSONRequestWithHeaders(method, request.getUri().toString(),
                         new JSONObject(((VolleyHttpBodyJSON)volleyBody).getJsonElement().toString()), future, future);
+                if(method == Request.Method.POST) {
+                    requestHeaders.remove(HTTP.CONTENT_LEN);
+                    requestHeaders.put(HTTP.CONTENT_LEN, String.valueOf(((JSONRequestWithHeaders)volleyRequest).getContentLength()));
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
                 volleyRequest = new JSONRequestWithHeaders(method, request.getUri().toString(),
@@ -85,20 +92,11 @@ public class HttpEngineVolley<T, SE extends ServerException> extends AbstractHtt
         } else {
             volleyRequest = new StringRequestWithHeaders(method,
                     request.getUri().toString(), volleyBody, future, future);
-            //volleyRequest = new JSONRequestWithHeaders(request.getHttpMethod().equalsIgnoreCase("GET") ? Request.Method.GET : Request.Method.POST, request.getUri().toString(), null, future, future);
 
         }
 
         ((VolleyRequest) volleyRequest).addHeaders(requestHeaders);
         volleyRequest.setRetryPolicy(new DefaultRetryPolicy(BasicHttpConfig.READ_TIMEOUT_IN_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-
-        /*HttpConfig httpConfig = request.getHttpConfig();
-        if (null != httpConfig) {
-            int readTimeout = httpConfig.getReadTimeout(request);
-            if (readTimeout >= 0)
-                volleyRequest.setRetryPolicy(new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        }*/
     }
 
     @Override

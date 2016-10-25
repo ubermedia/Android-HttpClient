@@ -40,20 +40,6 @@ public class JSONRequestWithHeaders extends JsonObjectRequest implements VolleyR
         code = response.statusCode;
         responseHeaders = new HashMap<>();
         responseHeaders.putAll(response.headers);
-        //return super.parseNetworkResponse(response);
-        /*try {
-            String jsonString = new String(response.data,
-                    HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
-            return Response.success(new JSONObject(jsonString),
-                    HttpHeaderParser.parseCacheHeaders(response));
-        } catch (UnsupportedEncodingException e) {
-            return Response.error(new ParseError(e));
-        } catch (JSONException je) {
-            return Response.error(new ParseError(je));
-        }*/
-
-
-
 
         try {
             String jsonString = new String(response.data,
@@ -71,6 +57,10 @@ public class JSONRequestWithHeaders extends JsonObjectRequest implements VolleyR
         } catch (JSONException je) {
             return Response.error(new ParseError(je));
         }
+    }
+
+    public long getContentLength() {
+        return getBody().length;
     }
 
     @Override
