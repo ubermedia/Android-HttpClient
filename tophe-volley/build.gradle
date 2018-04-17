@@ -21,7 +21,6 @@ android {
 }
 
 dependencies {
-    def artifactTophe = 'co.tophe:tophe:1.0.1'
     def localTophe = ':Tophe'
     def useLocalTophe = true
 
