@@ -38,7 +38,7 @@ public final class TopheClient {
 	 *
 	 * @param context Used to get a proper User Agent for your app, may be {@code null}
 	 */
-	public static void setup(Context context) {
+	public static void setup(final Context context) {
 		if (null != context) {
 			ApplicationInfo applicationInfo = context.getApplicationInfo();
 			xRequestedWith = applicationInfo.packageName;
@@ -68,26 +68,26 @@ public final class TopheClient {
 				} catch (PackageManager.NameNotFoundException ignored) {
 				}
 
-				if (useConscrypt)*/
-				{
-					try {
-						Class<?> providerInstaller = Class.forName("com.google.android.gms.security.ProviderInstaller");
-						Method mInsertProvider = providerInstaller.getDeclaredMethod("installIfNeeded", Context.class);
-						mInsertProvider.invoke(null, context);
 
-					} catch (Throwable ignored) {
-						try {
-							Context gms = context.createPackageContext("com.google.android.gms", Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY);
-							Class clazz = gms.getClassLoader().loadClass("com.google.android.gms.common.security.ProviderInstallerImpl");
-							Method mInsertProvider = clazz.getDeclaredMethod("insertProvider", Context.class);
-							mInsertProvider.invoke(null, context);
-						} catch (Throwable e) {
-						}
+				if (useConscrypt)*/
+
+				try {
+					Class<?> providerInstaller = Class.forName("com.google.android.gms.security.ProviderInstaller");
+					Method mInsertProvider = providerInstaller.getDeclaredMethod("installIfNeeded", Context.class);
+					mInsertProvider.invoke(null, context);
+
+				} catch (Throwable ignored) {
+					try {
+						Context gms = context.createPackageContext("com.google.android.gms", Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY);
+						Class clazz = gms.getClassLoader().loadClass("com.google.android.gms.common.security.ProviderInstallerImpl");
+						Method mInsertProvider = clazz.getDeclaredMethod("insertProvider", Context.class);
+						mInsertProvider.invoke(null, context);
+					} catch (Throwable e) {
 					}
 				}
-			}
 
-			HttpEngineFactoryUrlConnection.INSTANCE.init();
+				HttpEngineFactoryUrlConnection.INSTANCE.init();
+			}
 		}
 	}
 
