@@ -1,5 +1,10 @@
 package co.tophe.utils;
 
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,12 +12,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.text.TextUtils;
-import android.util.Log;
 
 import co.tophe.BuildConfig;
 
@@ -85,7 +84,7 @@ public final class DateUtils {
                     formatMap.get().put(dateFormat, format);
                 }
                 try {
-                    return format.parse(dateString);
+                    return format.parse(dateString.toUpperCase());
                 } catch (ParseException ignored) {
                 }
             }

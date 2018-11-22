@@ -48,18 +48,16 @@ public class HttpBodyUrlEncoded implements HttpBodyParameters {
 
 	private byte[] getEncodedParams() {
 		if (null==encodedParams) {
-			boolean first = true;
 			StringBuilder b = new StringBuilder();
-			//encodedParams = URLEncodedUtils.format(mParams, "UTF-8")/*.replace("*", "∗")*/.getBytes();
 
 			try {
 				for (NameValuePair pair: mParams) {
 					if (pair.getValue() == null)
-						continue;;
+						continue;
 
 					b.append(URLEncoder.encode(pair.getName(), "UTF-8"));
 					b.append('=');
-					b.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
+					b.append(URLEncoder.encode(pair.getValue(), "UTF-8").replace("*", "%2A"));
 					b.append('&');
 				}
 				encodedParams = b.toString().getBytes("UTF-8");
@@ -68,8 +66,6 @@ public class HttpBodyUrlEncoded implements HttpBodyParameters {
 				return new byte[]{};
 			}
 
-
-			//encodedParams = URLEncoder.encode(mParams, "UTF-8").getBytes();
 			mParams.clear();
 		}
 		Log.e("", "length " + encodedParams.length);
