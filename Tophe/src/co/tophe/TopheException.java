@@ -1,14 +1,14 @@
 package co.tophe;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.text.TextUtils;
 
 /**
  * Base exception to catch {@link co.tophe.ServerException} and {@link co.tophe.HttpException} at the same time.
@@ -16,9 +16,14 @@ import android.text.TextUtils;
  * @author Created by robUx4 on 29/09/2014.
  */
 public abstract class TopheException extends Exception {
-	private final int httpStatusCode;
+	private  int httpStatusCode;
 	private final HttpResponse response;
 	private final HttpRequestInfo request;
+
+	public TopheException() {
+		response = null;
+		request = null;
+	}
 
 	/**
 	 * Constructor.
@@ -31,7 +36,11 @@ public abstract class TopheException extends Exception {
 		super(detailMessage);
 		this.request = request;
 		this.response = response;
-		this.httpStatusCode = getHttpStatusCode(response);
+		try {
+
+		} catch (Exception e) {
+			this.httpStatusCode = getHttpStatusCode(response);
+		}
 	}
 
 	/**
@@ -41,6 +50,10 @@ public abstract class TopheException extends Exception {
 	 */
 	public int getStatusCode() {
 		return httpStatusCode;
+	}
+
+	public void setStatusCode(int code){
+		httpStatusCode = code;
 	}
 
 	/**

@@ -1,3 +1,13 @@
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
+    }
+}
+
 apply plugin: 'com.android.library'
 
 dependencies {
@@ -33,7 +43,7 @@ android {
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
     defaultConfig {
-        minSdkVersion Math.max(9, Integer.parseInt(ANDROID_BUILD_MIN_SDK_VERSION))
+        minSdkVersion Math.max(14, Integer.parseInt(ANDROID_BUILD_MIN_SDK_VERSION))
         targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
         versionCode Integer.parseInt(project.VERSION_CODE)
         versionName project.VERSION_NAME
@@ -58,7 +68,7 @@ android {
 
     buildTypes {
         release {
-            proguardFiles getDefaultProguardFile('proguard-project.txt'), 'proguard-rules.txt'
+            proguardFile file('proguard-project.txt')
         }
     }
 

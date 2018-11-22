@@ -29,7 +29,13 @@ public class ServerException extends TopheException {
 	public static final int HTTP_STATUS_GATEWAY_TIMEOUT = 504;
 	public static final int HTTP_STATUS_INTERNAL        = 506;
 	
-	private final Object serverError;
+	private Object serverError;
+
+	public ServerException() {
+		super();
+		serverError = null;
+
+	}
 
 	public ServerException(@NonNull ImmutableHttpRequest request, @Nullable Object serverError) {
 		super(request.getHttpRequest(), request.getHttpResponse(), "serverError=" + String.valueOf(serverError));
@@ -54,5 +60,9 @@ public class ServerException extends TopheException {
 	@Nullable
 	public Object getServerError() {
 		return serverError;
+	}
+
+	protected void setServerError(Object err) {
+		serverError = err;
 	}
 }
