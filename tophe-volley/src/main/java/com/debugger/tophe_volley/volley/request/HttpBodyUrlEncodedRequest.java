@@ -6,6 +6,8 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.debugger.tophe_volley.volley.internal.VolleyHttpBodyUrlEncoded;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 /**
@@ -27,10 +29,29 @@ public class HttpBodyUrlEncodedRequest extends StringRequestWithHeaders {
         return super.getParams();
     }
 
+    private byte[] encodeParameters(Map<String, String> params, String paramsEncoding) {
+        StringBuilder encodedParams = new StringBuilder();
+        try {
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                encodedParams.append(URLEncoder.encode(entry.getKey(), paramsEncoding));
+                encodedParams.append('=');
+                encodedParams.append(URLEncoder.encode(entry.getValue(), paramsEncoding).replace("*", "%2A"));
+                encodedParams.append('&');
+            }
+            return encodedParams.toString().getBytes(paramsEncoding);
+        } catch (UnsupportedEncodingException uee) {
+            throw new RuntimeException("Encoding not supported: " + paramsEncoding, uee);
+        }
+    }
+
     @Override
     public byte[] getBody() throws AuthFailureError {
         Log.e("", "BODY " + super.getBody().toString());
-        return super.getBody();
+        Map<String, String> params = getParams();
+        if (params != null && params.size() > 0) {
+            return encodeParameters(params, getParamsEncoding());
+        }
+        return null;
     }
 
     @Override
