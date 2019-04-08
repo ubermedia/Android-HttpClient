@@ -96,7 +96,7 @@ public class HttpEngineVolley<T, SE extends ServerException> extends AbstractHtt
         }
 
         ((VolleyRequest) volleyRequest).addHeaders(requestHeaders);
-        volleyRequest.setRetryPolicy(new DefaultRetryPolicy(BasicHttpConfig.READ_TIMEOUT_IN_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        volleyRequest.setRetryPolicy(new DefaultRetryPolicy(BasicHttpConfig.READ_TIMEOUT_IN_MS, 0/*DefaultRetryPolicy.DEFAULT_MAX_RETRIES*/, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     @Override

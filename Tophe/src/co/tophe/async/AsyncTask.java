@@ -1,5 +1,10 @@
 package co.tophe.async;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.HashMap;
@@ -9,11 +14,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
-
-import android.os.Handler;
-import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import co.tophe.HttpEngine;
 import co.tophe.HttpRequest;
