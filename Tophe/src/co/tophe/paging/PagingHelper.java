@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import co.tophe.async.AsyncCallback;
 import co.tophe.async.AsyncTopheClient;

@@ -2,8 +2,8 @@ package co.tophe;
 
 import java.net.ProtocolException;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Exception when the wrong IP protocol is used by the HTTP engine.

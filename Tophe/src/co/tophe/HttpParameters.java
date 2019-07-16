@@ -1,7 +1,7 @@
 package co.tophe;
 
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Holds parameters passed to the HTTP query.

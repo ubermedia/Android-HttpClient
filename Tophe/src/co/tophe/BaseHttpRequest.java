@@ -1,6 +1,6 @@
 package co.tophe;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import co.tophe.parser.XferTransform;
 

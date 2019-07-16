@@ -1,7 +1,7 @@
 package co.tophe;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
 * Exception raised when there is a timeout connecting, reading or writing data on the HTTP connection

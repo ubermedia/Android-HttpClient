@@ -1,7 +1,7 @@
 package co.tophe.engine;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import co.tophe.HttpEngine;
 import co.tophe.HttpException;

@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Interface to define an HTTP response coming from any {@link HttpEngine}

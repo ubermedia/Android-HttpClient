@@ -1,6 +1,6 @@
 package com.debugger.tophe_volley.volley.internal;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.android.volley.AuthFailureError;
@@ -8,17 +8,14 @@ import com.android.volley.Request;
 import com.debugger.tophe_volley.volley.request.JSONRequestWithHeaders;
 import com.debugger.tophe_volley.volley.request.StringRequestWithHeaders;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import co.tophe.HttpResponse;
-import co.tophe.ServerException;
 import co.tophe.parser.XferTransform;
 
 /**

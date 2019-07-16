@@ -1,6 +1,6 @@
 package co.tophe;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Exception raised when no {@link HttpEngine} could be found to process the {@link co.tophe.HttpRequestInfo}.

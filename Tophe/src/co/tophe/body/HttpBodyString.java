@@ -3,7 +3,7 @@ package co.tophe.body;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import co.tophe.HttpRequestInfo;
 import co.tophe.UploadProgressListener;

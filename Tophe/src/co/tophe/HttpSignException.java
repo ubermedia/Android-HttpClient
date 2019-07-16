@@ -1,6 +1,6 @@
 package co.tophe;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Exception raised when we fail to generate a valid signature for the HTTP Request.

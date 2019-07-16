@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import co.tophe.AbstractHttpEngine;
 import co.tophe.HttpResponse;

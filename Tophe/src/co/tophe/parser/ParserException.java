@@ -1,6 +1,6 @@
 package co.tophe.parser;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Runtime Exception that occurs when data parsing with {@link co.tophe.HttpResponse} fails.

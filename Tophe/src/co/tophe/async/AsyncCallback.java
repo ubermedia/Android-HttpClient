@@ -1,7 +1,7 @@
 package co.tophe.async;
 
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Callback called in the UI thread when an Async task has finished successfully or with an error (not when canceled)

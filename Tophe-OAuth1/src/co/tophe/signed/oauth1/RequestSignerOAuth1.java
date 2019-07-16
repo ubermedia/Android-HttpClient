@@ -1,7 +1,7 @@
 package co.tophe.signed.oauth1;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import co.tophe.HttpSignException;
 import co.tophe.HttpEngine;

@@ -1,7 +1,5 @@
 package co.tophe;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,7 +9,7 @@ import java.util.Map;
 import org.apache.http.protocol.HTTP;
 
 import android.net.Uri;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
 import co.tophe.body.HttpBodyParameters;

@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;

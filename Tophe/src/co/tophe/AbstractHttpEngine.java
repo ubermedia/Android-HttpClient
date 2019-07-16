@@ -15,10 +15,9 @@ import org.apache.http.protocol.HTTP;
 import android.annotation.SuppressLint;
 import android.net.TrafficStats;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import co.tophe.log.LogManager;
 import co.tophe.parser.ParserException;

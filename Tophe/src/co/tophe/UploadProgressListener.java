@@ -1,6 +1,6 @@
 package co.tophe;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Listener to know the progress of a long HTTP Post (or any request with a body).

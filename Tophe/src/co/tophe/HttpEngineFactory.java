@@ -1,6 +1,6 @@
 package co.tophe;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Interface to create an {@link co.tophe.HttpEngine} based on the Builder.

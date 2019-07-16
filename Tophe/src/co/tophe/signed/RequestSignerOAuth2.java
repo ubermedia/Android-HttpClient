@@ -1,6 +1,6 @@
 package co.tophe.signed;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
 import co.tophe.HttpEngine;

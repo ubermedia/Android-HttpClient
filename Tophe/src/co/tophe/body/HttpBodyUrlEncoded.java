@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import org.apache.http.client.utils.URLEncodedUtils;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import co.tophe.HttpRequestInfo;

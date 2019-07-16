@@ -1,6 +1,6 @@
 package co.tophe.parser;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import co.tophe.HttpResponse;
 import co.tophe.log.LogManager;

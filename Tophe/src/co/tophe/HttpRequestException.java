@@ -1,6 +1,6 @@
 package co.tophe;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Error on the HTTP request before any network processing is involved

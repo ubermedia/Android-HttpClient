@@ -2,7 +2,7 @@ package co.tophe.paging;
 
 import java.util.concurrent.Callable;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import co.tophe.async.NextCallable;
 

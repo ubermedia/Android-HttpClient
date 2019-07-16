@@ -1,7 +1,7 @@
 package co.tophe;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * A network related exception like a timeout, IO error. This is not an exception generated from a server error like {@link co.tophe.ServerException}

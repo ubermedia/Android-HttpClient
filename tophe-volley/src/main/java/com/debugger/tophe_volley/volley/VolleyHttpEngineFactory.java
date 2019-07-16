@@ -1,19 +1,16 @@
 package com.debugger.tophe_volley.volley;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
 
 import co.tophe.HttpEngine;
 import co.tophe.HttpEngineFactory;
 import co.tophe.HttpResponse;
 import co.tophe.ResponseHandler;
 import co.tophe.ServerException;
-import co.tophe.parser.Utils;
 import co.tophe.parser.XferTransform;
 import co.tophe.parser.XferTransformChain;
 import co.tophe.parser.XferTransformInputStreamHttpStream;

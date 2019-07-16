@@ -1,7 +1,7 @@
 package co.tophe;
 
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import co.tophe.log.LoggerTagged;
 

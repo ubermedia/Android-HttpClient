@@ -1,6 +1,6 @@
 package co.tophe;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * An immutable HTTP request with its  response (if there was one).

@@ -1,6 +1,6 @@
 package co.tophe;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * An {@link HttpRequest} that outputs data of type {@code T}
