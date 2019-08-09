@@ -9,12 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import androidx.annotation.Nullable;
-
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
+import androidx.annotation.Nullable;
 import co.tophe.HttpEngine;
 import co.tophe.HttpEngineFactory;
 import co.tophe.ServerException;
@@ -103,7 +102,7 @@ public class HttpEngineFactoryUrlConnection implements HttpEngineFactory {
 		private final SSLSocketFactory delegate;
 
 		private NoSSLv3Factory() {
-			this.delegate = HttpsURLConnection.getDefaultSSLSocketFactory();
+			this.delegate = new Tls12SocketFactory(HttpsURLConnection.getDefaultSSLSocketFactory());
 		}
 
 		@Override
